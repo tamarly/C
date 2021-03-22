@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>COCKPIT COUNTRY TOURIST ATTRACTIONS</title>
+    <link rel="stylesheet" href="src/leaflet.css">
+    <link rel="stylesheet" href="src/css/bootstrap.css">
+    <link rel="stylesheet" href="src/plugins/L.Control.MousePosition.css">
+    <link rel="stylesheet" href="src/plugins/L.Control.Sidebar.css">
+    <link rel="stylesheet" href="src/plugins/Leaflet.PolylineMeasure.css">
+    <link rel="stylesheet" href="src/plugins/easy-button.css">
+    <link rel="stylesheet" href="src/plugins/leaflet-styleeditor/css/Leaflet.StyleEditor.css">
+    <link rel="stylesheet" href="src/css/font-awesome.min.css">
+    <link rel="stylesheet" href="src/plugins/leaflet.awesome-markers.css">
+    <link rel="stylesheet" href="src/plugins/leaflet-mapkey/MapkeyIcons.css">
+    <link rel="stylesheet" href="src/plugins/leaflet-mapkey/L.Icon.Mapkey.css">
+    <link rel="stylesheet" href="src/jquery-ui.min.css">
+    <link rel="stylesheet" href="src/leaflet.label.css">
+
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=2AikqcdjLY1qNsFLdjz1VoBfpJrHjAX0Syu9xwE_yC57VSkes2W173_mQ8Ciq361Q_dXencSETyQ0vaZMiUVo1yQ3gZxMjSH8dRNjZCubL9etoxTA4QTRKzeRnSTn8T42Hj7CDHHOPqptZRWQhJ1IgKVMhNTfeCfWG3U3Ty5-jaSSR7CDGtObkj4Qpo7UGi88GIx99lRPJP-uiPRvloO0A" charset="UTF-8"></script><script src="src/leaflet-src.js"></script>
+    <script src="src/jquery-3.5.1.min.js"></script>
+    <script src="src/bootstrap.min.js"></script>
+    <script src="src/plugins/L.Control.MousePosition.js"></script>
+    <script src="src/plugins/L.Control.Sidebar.js"></script>
+    <script src="src/plugins/Leaflet.PolylineMeasure.js"></script>
+    <script src="src/plugins/easy-button.js"></script>
+    <script src="src/plugins/leaflet-providers.js"></script>
+    <script src="src/plugins/leaflet-styleeditor/javascript/Leaflet.StyleEditor.js"></script>
+    <script src="src/plugins/leaflet-styleeditor/javascript/Leaflet.StyleForms.js"></script>
+    <script src="src/plugins/leaflet.ajax.min.js"></script>
+    <script src="src/plugins/leaflet.sprite.js"></script>
+    <script src="src/plugins/leaflet.awesome-markers.min.js"></script>
+    <script src="https://kit.fontawesome.com/8e33b25239.js" crossorigin="anonymous"></script>
+    <script src="src/plugins/leaflet-mapkey/L.Icon.Mapkey.js"></script>
+    <script src="src/jquery-ui.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="src/plugins/Leaflet.label.js"></script>
+    <script src="data/Trail.js"></script>
+    <script src="data/Community.js"></script>
+    <script src="data/Oattraction.js"></script>
+    <script src="data/Rivers.js"></script>
+    <script src="data/Caves.js"></script>
+    <script src="data/River.js"></script>
+    <script src="data/Bdy.js"></script>
+    <script src="data/Springs_4.js"></script>
+    <script src="data/Station.js"></script>
+    <style>
+
+
+        #mapdiv {
+            width:1307;
+            height: 580px;
+        }
+        #header {
+			text-align:center;
+			height: 75px;
+			background-color: green;
+        }
+
+
+        .leaflet-popup-content-wrapper {
+            border-radius: 2;
+            background: Snow;
+            color: black;
+            font-size: 15px;
+            align-content: center;
+        }
+
+        .leaflet-popup-content {
+            margin: 13px;
+        }
+
+        .leaflet-popup-tip {
+            background: Snow;
+        }
+
+        .leaflet-popup-close-button {
+            display: inherit;
+        }
+
+        h2 {
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            font-family: 'Arial'
+        }
+
+        h3 {
+            color: white;
+            text-align: center;
+        }
+
+        h4 {
+            color: black;
+            text-align: justify;
+        }
+
+        h5 {
+            color: black;
+            text-align: justify;
+        }
+
+        h6 {
+            color: white;
+            text-align: justify;
+        }
+
+
+
+        .leaflet-sidebar > .leaflet-control {
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+            padding: 12px 24px;
+            font-size: 1.5em;
+            background: grey;
+            box-shadow: 1px 1px 1px grey;
+            border-radius: 8px;
+            z-index: 3000;
+            visibility: visible;
+            opacity: 0.98;
+        }
+
+
+        a.close {
+            display: inherit;
+            float: right;
+            z-index: 5000;
+            font-weight: 700;
+            font-size: 1.5em;
+            line-height: 1;
+            color: black;
+            text-shadow: #000;
+            visibility: visible
+        }
+
+        .leaflet-container {
+            font: Helvetica Neue, Arial, Helvetica, "sans-serif";
+            font-size: 0.7em;
+        }
+
+        #overlay {
+            position: absolute;
+            z-index: 1000;
+            background: rgba(255,255,255,0.7);
+            padding: 10px;
+            right: 0;
+            margin: 10px;
+            border-radius: 20px;
+            box-shadow: 1px,1px,1px,grey;
+            min-height: 210px;
+            bottom: 0;
+            margin-bottom: 40px;
+            width: 230px
+        }
+
+        @media screen and (max-width:450px) and (min-width:290px) {
+            .leaflet-sidebar {
+                width: 100% !important;
+            }
+        }
+
+        @media screen and (max-width:768px) {
+            #overlay {
+                padding: 10px 0 6px;
+                margin-bottom: 16px;
+                width: 179px;
+                min-height: 183px;
+            }
+
+                #overlay h4 {
+                    font-size: 15px !important;
+                }
+
+                #overlay text {
+                    font-size: 10px !important;
+                }
+
+            #sidebar img {
+                width: 100%
+            }
+
+            .leaflet-sidebar {
+                width: 305px;
+            }
+                .leaflet-sidebar .close {
+                    top: 12px;
+                    right: 12px !important;
+                }
+        }
+
+        @media (max-width: 991px) and (min-width: 768px) {
+
+            #sidebar img {
+                width: 100%
+            }
+        }
+
+        @media (max-width: 1199px) and (min-width: 992px) {
+            #sidebar img {
+                width: 100%
+            }
+        }
+        #sidebar > h2 {
+            margin-top: 22px;
+            margin-bottom: 25px;
+        }
+        .leaflet-sidebar .close {
+          
+            width: 27px;
+            height: 27px;
+            font-size: 24px;
+            line-height: 27px;
+            z-index:5000;
+        }
+        .menu a {
+		  background-color:beige;
+		  padding:8px;
+		  margin-top:7px;
+		  display:block;
+		  color:black;
+		}	
+        #footer {
+			text-align:center;
+			height: 50px;
+			background-color: green;
+		}
+    </style>
+
+</head>
+
+<body>
+     <div id="sidebar">
+      
+    </div>
+         <div id ="header" class="col-md-12">
+		    <h1 class="text-center">COCKPIT COUNTRY TOURIST ATTRACTIONS</h1>
+	</div>
+    <div id="sidebar">
+	</div> 
+	
+	</div>
+    <div id="mapdiv" class="col-md-12"></div>
+    <div id ="footer" class ="col-md-12">
+		     <h6 id= "map_coords" class = "text-center">Latitude:18.01265908527996, Longitude:-77.93796800277207</h6>
+			 <h6 class="text-center">&copy;2021<a href="http://cockpitcountry.com"> Cockpit Country</a>
+			 </h6>	
+	</div>
+
+    <div id="sidebar">
+      
+    </div>
+
+    <div id="mapdiv" class="col-md-12"></div>
+
+    <script>
+        var mymap;
+        var lyrOSM;
+        var lyrImagery;
+        var lyrTrails;
+        var lyrCaves;
+        var lyrHist;
+        var lyrOA;
+        var lyrRiver;
+        var lyrBdy;
+        var lyrSprings;
+        var lyrStation;
+        var fgpDrawnItems;
+        var ctlAttribute;
+        var ctlScale;
+        var ctlMouseposition;
+        var ctlEasybutton;
+        var ctlSidebar;
+        var ctlStyle;
+        var objBasemaps;
+        var objOverlays;
+        var title;
+        
+    
+
+
+
+
+        $(document).ready(function () {
+
+            //  ********* Map Initialization **************//
+
+
+
+            mymap = L.map('mapdiv', { center: [18.3338, -77.6765], zoom:11.48, attributionControl: false });
+
+            ctlSidebar = L.control.sidebar('sidebar', {
+                position: 'left',
+                CloseButton: 'true'
+            });
+            mymap.addControl(ctlSidebar);
+            
+
+      
+
+
+       
+            ctlAttribute = L.control.attribution().addTo(mymap);
+              /* ctlAttribute.addAttribution('OSM');*/
+
+
+            ctlScale = L.control.scale({ position: 'bottomleft', metric: true, imperial: false }).addTo(mymap);
+
+            /*ctlMouseposition = L.control.mousePosition().addTo(mymap);*/
+
+
+
+            //   *********** Layer Initialization **********
+
+
+             title = new L.Control();
+         title.onAdd = function (mymap) {
+             this._div = L.DomUtil.create('div', 'info');
+             this.update();
+             return this._div;
+         };
+         title.update = function () {
+             this._div.innerHTML = '<h2></h2>';
+         };
+         title.addTo(mymap);
+
+
+            lyrOSM = L.tileLayer.provider('OpenStreetMap.Mapnik');
+            lyrImagery = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-v9/tiles/{z}/{x}/{y}?access_token=' + 'pk.eyJ1IjoiZ2FicmllbGFzciIsImEiOiJja2k1Z2NwNjMwNTNzMnVvM2g2dGtvYjByIn0.UYN7hPWjZhbXCcS5MfsRSg', {
+                attribution: '© <a href="https://www.mapbox.com/feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            });
+            mymap.addLayer(lyrOSM);
+
+
+
+
+
+           
+
+
+            lyrTrails =  L.geoJSON(Trails, { style: styletrails, onEachFeature: Processtrails}).addTo(mymap);
+            lyrRiver =  L.geoJSON(River, { style: styleriver, onEachFeature: Processriver}).addTo(mymap);
+
+            /*lyrCaves =  L.geoJSON(Caves, {pointToLayer:returnCaveMarker, onEachFeature: Processcaves}).addTo(mymap);*/
+          
+            lyrHist =  L.geoJSON(Community, {pointToLayer:returnHistMarker, onEachFeature: Processhist}).addTo(mymap);
+            lyrOA =  L.geoJSON(Oattraction, {pointToLayer:returnOAMarker, onEachFeature: ProcessOA}).addTo(mymap);
+            lyrBdy =  L.geoJSON(Bdy).addTo(mymap);
+             /*lyrSta =  L.geoJSON(Station, {pointToLayer:returnMarker, onEachFeature: ProcessStation}).addTo(mymap);*/
+            lyrSprings =  L.geoJSON(json_Springs_4, {pointToLayer:returnSpringMarker}).addTo(mymap);
+            
+
+            // ********* Setup Layer Control  ***************
+
+
+
+            objBasemaps = {
+                "Open Street Maps": lyrOSM,
+                "Satellite": lyrImagery,
+
+            };
+            
+            objOverlays = {
+                "Trails": lyrTrails,
+                "Caves": lyrCaves,
+
+            };
+
+
+            ctlLayers = L.control.layers(objBasemaps, objOverlays).addTo(mymap);
+
+        });
+        
+     
+        
+
+        
+
+
+        
+
+        
+        
+        //  *********** Historial Comm Functions******** //
+        
+        
+
+        var icnHistComm = L.AwesomeMarkers.icon({ icon: 'institution', markerColor: 'blue', prefix: 'fa' });
+        
+        function returnHistMarker(geojson, latlng) {
+            var att = geojson.properties;
+           if (att.COMMNAME == "Accompong") {
+            var icnHist = icnHistComm
+        } else {
+        var icnCaves = icnHistComm
+        }
+             return L.marker(latlng, { icon: icnHistComm});
+            
+        }
+        
+        
+
+    
+
+         function Processhist(json, lyr) {
+            var att = json.properties;
+            
+            lyr.bindPopup("<h4>" + att.COMMNAME + "</h4><img src='img/" + att.photo + "' width='200px'>");
+
+            
+        }
+
+        //  *********** Other Attractions Comm Functions******** //
+             
+
+        var icnOA = L.AwesomeMarkers.icon({ icon: 'tree', markerColor: 'orange', prefix: 'fa' });
+        
+        function returnOAMarker(geojson, latlng) {
+            var att = geojson.properties;
+           if (att.Name == "Black River Head") {
+            var icnComm = icnOA
+        } else {
+        var icnComm = icnOA
+        }
+             return L.marker(latlng, { icon: icnOA});
+            
+        }
+        
+         function ProcessOA(json, lyr) {
+            var att = json.properties; 
+            switch(att.Name){
+                case 'Black River Head':
+                return lyr.bindPopup("<h4>" + att.Name + "</h4><img src='img/" + att.Photo + "' width='200px'>");
+                break;
+                case 'Cockpit Country Falls':
+                return lyr.bindPopup("<h4>" + att.Name + "</h4><img src='img/" + att.Photo + "' width='200px'>");
+                break;
+                case 'Flagstaff Hertitage Centre':
+                return lyr.bindPopup("<h4>" + att.Name + "</h4><a href='https://www.caribbeanbirdingtrail.org/sites/jamaica/flagstaff/' target ='_blank'><img src='img/" + att.Photo + "' width='200px'>");
+                break;
+                case 'Noisy River Falls':
+                return lyr.bindPopup("<h4>" + att.Name + "</h4><img src='img/" + att.Photo + "' width='200px'>");
+                break;
+                case 'Noisy River Park':
+                return lyr.bindPopup("<h4>" + att.Name + "</h4><img src='img/" + att.Photo + "' width='200px'>");
+                break;
+                case 'The Last Resort':
+                return lyr.bindPopup("<h4>" + att.Name + "</h4><a href='http://www.jamaicancaves.org/last-resort-jamaica.htm' target ='_blank'><img src='img/" + att.Photo + "' width='200px'>");
+                break;
+                case 'Windsor Great House':
+                return lyr.bindPopup("<h4>" + att.Name + "</h4><a href='https://cockpitcountry.com/WGH%20history.html' target ='_blank'><img src='img/" + att.Photo + "' width='200px'>");
+                break;
+                
+                
+            }
+   
+            
+        }
+
+        //  *********** Trails Functions******** //
+
+        function styletrails(json) {
+            return { color: 'red', weight: 5 }
+        }
+
+        function highlightFeature(e) {
+            var layer = e.target;
+            layer.setStyle(
+                {
+                    weight: 5,
+                    color: 'black',
+                    fillColor: 'white',
+                    fillOpacity: 0.2
+                }
+
+            );
+
+            if (!L.Browser.ie && !L.Browser.opera) {
+                layer.bringToFront();
+
+            }
+
+        }
+
+        function resetHighlight(e) {
+            lyrTrails.resetStyle(e.target);
+
+        }
+
+
+
+        function Processtrails(json, lyr) {
+            var att = json.properties;
+            
+
+            lyr.bindTooltip(json.properties.Name, { noHide: true });
+
+            lyr.on(
+                {
+                    mouseover: highlightFeature,
+                    mouseout: resetHighlight,
+
+                });
+
+            lyr.on('click', function (lyr) {
+            $('#sidebar').html("<h2>Cockpit Trails</h2><h3>Trail: " + att.Name + "</h3><br><img src='img/" + att.photo + "' width='400px'><br><br><br><h6>" + att.Service + "</h6><h6>" + att.Capacity + "</h6><h6>" + att.Remarks +
+            "</h6><br><a href='https://www.caribbeanbirdingtrail.org' target ='_blank'><button id='btninformation' class='btn btn-info btn-sm' style='margin-right:10px'>More information</button></a>");
+            ctlSidebar.show(); setTimeout(function () {
+            ctlSidebar.hide();
+            }, 5000);
+
+            });     
+
+
+        }
+
+      
+ //  *********** Rivers Functions******** //
+
+        function styleriver(json) {
+            return { color: 'blue', weight: 5 }
+        }
+
+        function highlightFeature(e) {
+            var layer = e.target;
+            layer.setStyle(
+                {
+                    weight: 5,
+                    color: 'black',
+                    fillColor: 'white',
+                    fillOpacity: 0.2
+                }
+
+            );
+
+            if (!L.Browser.ie && !L.Browser.opera) {
+                layer.bringToFront();
+
+            }
+
+        }
+
+        function resetHighlight(e) {
+            lyrRiver.resetStyle(e.target);
+
+        }
+
+        function Processriver(json, lyr) {
+            var att = json.properties;
+            
+            lyr.bindTooltip(json.properties.RIVER_NAME, { noHide: true });
+
+            lyr.on(
+                {
+                    mouseover: highlightFeature,
+                    mouseout: resetHighlight,
+
+                });
+              lyr.on('click', function (lyr) {
+            $('#sidebar').html("<h2>Cockpit Rivers</h2><h3>Rivers: " + att.RIVER_NAME + "</h3><br><img src='" + att.photo + "' width='400px'><br><br><br><h6>" + att.Service + "</h6><h6>" + att.Capacity + "</h6><h6>" + att.Remarks +
+            "</h6><br><a href='https://www.caribbeanbirdingtrail.org' target ='_blank'><button id='btninformation' class='btn btn-info btn-sm' style='margin-right:10px'>More information</button></a>");
+            ctlSidebar.show(); setTimeout(function () {
+            ctlSidebar.hide();
+            }, 5000);
+
+            }); 
+
+        //  *********** Caves Functions******** //
+        
+        
+
+       /* var icnCave = L.AwesomeMarkers.icon({ icon: 'circle', markerColor: 'brown', prefix: 'fa' });
+        
+        function returnCaveMarker(geojson, latlng) {
+            var att = geojson.properties;
+           if (att.CAVES_NAME == 'Alps Cave') {
+            var icnCaves = icnCave
+        } else {
+        var icnCaves = icnCave
+        }
+             return L.marker(latlng, { icon: icnCave});
+            
+        }
+        
+        
+        function Processcaves(json, lyr) {
+            var att = json.properties;
+            
+
+            lyr.bindTooltip(json.properties.CAVES_NAME, { noHide: true });
+
+    
+
+            lyr.on('click', function (lyr) {
+            $('#sidebar').html("<h2>Cockpit Caves</h2><h3>Trail: " + att.Name + "</h3><br><img src='img/" + att.photo + "' width='400px'><br><br><br><h6>" + att.Service + "</h6><h6>" + att.Capacity + "</h6><h6>" + att.Remarks +
+            "</h6><br><a href='https://www.caribbeanbirdingtrail.org' target ='_blank'><button id='btninformation' class='btn btn-info btn-sm' style='margin-right:10px'>More information</button></a>");
+            ctlSidebar.show(); setTimeout(function () {
+            ctlSidebar.hide();
+            }, 5000);
+
+            });   
+
+         //  *********** Station Comm Functions******** //
+        
+        
+
+        /*var icnSta = L.AwesomeMarkers.icon({ icon: 'station', markerColor: 'blue', prefix: 'fa' });
+        
+        function returnStationMarker(json, latlng) {
+            var att = json.properties;
+           if (att.name == "Warsop") {
+            var icnComm = icnSta
+        } else {
+        var icnComm= icnSta
+        }
+             return L.marker(latlng, { icon: icnSta});
+            
+        }
+        
+        //  *********** Springs Functions******** //
+       /* var icnSpring = L.AwesomeMarkers.icon({ icon: 'water', markerColor: 'green', prefix: 'fa' });
+        
+
+        function returnSpringMarker(geojson, latlng) {
+            var att = geojson.properties;
+           if (att.SPRING_NAM == 'Baileys') {
+            var icnSprings = icnSpring
+        } else {
+        var icnSprings = icnSpring
+        }
+             return L.marker(latlng, { icon: icnSpring});
+            
+        }*/
+
+            
+
+         //  ***********  General Functions *********
+
+        function LatLngToArrayString(ll) {
+            return "[" + ll.lat.toFixed(5) + ", " + ll.lng.toFixed(5) + "]";
+        }
+
+
+        }
+       
+        
+
+    </script>
+</body>
+</html>
